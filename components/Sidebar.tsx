@@ -1,6 +1,7 @@
 import React from 'react';
+
 import Link from 'next/link';
-import { FaHome, FaChartPie, FaCog } from 'react-icons/fa';
+import { FaChartPie, FaCog, FaHome } from 'react-icons/fa';
 
 const Sidebar = () => {
   return (
@@ -17,9 +18,11 @@ const Sidebar = () => {
               <FaHome /> <span>Gallery</span>
             </li>
           </Link>
-          <li className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded cursor-pointer">
-            <FaChartPie /> <span>Analytics</span>
-          </li>
+          <Link href={'/BlackHole'} passHref>
+            <li className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded cursor-pointer">
+              <FaChartPie /> <span>BlackHole</span>
+            </li>
+          </Link>
           <li className="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded cursor-pointer">
             <FaCog /> <span>Settings</span>
           </li>
