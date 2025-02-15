@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
-import Header from '../components/Header';
-import Card from '../components/Card'; // 예제: 카드 컴포넌트
-import Chart from '../components/Chart'; // 예제: 차트 컴포넌트
+import Card from '@/components/Card';
+import Chart from '@/components/Chart';
 
 const Home = () => {
   return (

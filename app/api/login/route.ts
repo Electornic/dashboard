@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { supabase } from '@/lib/supabaseClient';
 import { createAccessToken, createRefreshToken } from '@/utils/jwt';
-import { serialize } from 'cookie';
 
 export async function POST(req: NextRequest) {
   try {
