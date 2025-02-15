@@ -1,7 +1,11 @@
 'use client';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const LoginPage = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,7 +27,7 @@ const LoginPage = () => {
       if (response.ok) {
         alert('로그인 성공!');
         // 로그인 성공 후 페이지 이동
-        window.location.href = '/dashboard';
+        router.replace('/');
       } else {
         console.log('response', response);
         alert('로그인 실패. 다시 시도해주세요.');
@@ -81,6 +85,15 @@ const LoginPage = () => {
             로그인
           </button>
         </form>
+        <div className="text-center text-sm text-gray-500">
+          계정이 없으신가요?{' '}
+          <Link
+            href="/signup"
+            className="underline text-indigo-500 hover:text-indigo-700"
+          >
+            회원가입
+          </Link>
+        </div>
       </div>
     </div>
   );

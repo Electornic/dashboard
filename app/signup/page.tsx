@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const SignupPage = () => {
   const [name, setName] = useState('');
@@ -127,12 +128,12 @@ const SignupPage = () => {
         </form>
         <div className="text-center text-sm text-gray-500">
           이미 계정이 있으신가요?{' '}
-          <a
+          <Link
             href="/login"
             className="underline text-indigo-500 hover:text-indigo-700"
           >
             로그인
-          </a>
+          </Link>
         </div>
       </div>
     </div>

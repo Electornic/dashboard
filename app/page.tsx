@@ -7,7 +7,6 @@ import Chart from '../components/Chart'; // 예제: 차트 컴포넌트
 const Home = () => {
   return (
     <div className="flex-1 bg-gray-100">
-      <Header />
       <main className="p-6">
         <h2 className="text-xl font-semibold mb-4">
           Welcome to your Dashboard
