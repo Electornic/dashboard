@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+
 import Card from '@/components/Card';
 import Chart from '@/components/Chart';
 
