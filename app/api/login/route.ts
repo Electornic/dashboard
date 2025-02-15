@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { supabase } from '@/lib/supabaseClient';
+import { createAccessToken, createRefreshToken } from '@/utils/jwt';
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,7 +38,6 @@ export async function POST(req: NextRequest) {
 
     const user = data;
 
-    console.log('password', password, user.password_hash);
     // 비밀번호 비교 (입력 비밀번호와 해시된 비밀번호)
     const isMatch = await bcrypt.compare(password, user.password_hash);
 
@@ -48,8 +48,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Access Token 생성 (1일 만료)
+    const accessToken = createAccessToken({ id: user.id, email: user.email });
+
+    // Refresh Token 생성 (7일 만료)
+    const refreshToken = createRefreshToken({ id: user.id });
+
     // 인증 성공
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         message: '로그인 성공!',
         user: {
@@ -59,6 +65,24 @@ export async function POST(req: NextRequest) {
       },
       { status: 200 },
     );
+
+    response.cookies.set('access_token', accessToken, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24, // 1일 (초 단위)
+      path: '/',
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+    });
+
+    response.cookies.set('refresh_token', refreshToken, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 7, // 7일 (초 단위)
+      path: '/',
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+    });
+
+    return response;
   } catch (err) {
     console.error('로그인 에러:', err);
     return NextResponse.json(
